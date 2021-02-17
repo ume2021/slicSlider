@@ -1,0 +1,76 @@
+
+._slsl_background{
+  position:relative;
+  /*background-color:rgb(230,230,230);*/
+  /*border-radius:40px;*/
+}
+
+._slsl_image{
+  border-radius:40px;
+}
+
+._slsl_slid_parent{
+  position:absolute;
+  top:50px;
+  left:700px;
+  width:500px;
+  height:300px;
+  display:flex;
+  flex-flow:row wrap;
+  align-items:center;
+  justify-content:space-between;
+}
+
+._slsl_slidbar{
+  background-color:rgb(210,210,210);
+  border:1px solid rgb(210,210,210);
+  width:20px;
+  height:100px;
+  opacity:0.6;
+  border-radius:5px;
+}
+
+._slsl_slidbar:hover{
+  opacity:1.0;
+  border:1px solid rgb(156,156,156);
+}
+
+._slsl_slidpoint_parent{
+  opacity:1.0;
+  display:flex;
+  justify-content:center;
+  align-self:flex-end;
+  flex-flow:row wrap;
+  flex-basis:50%;
+}
+
+._slsl_slidpoint_width{
+  width:20px;
+  height:15px;
+  margin-left:5px;
+}
+
+._slsl_slidpoint{
+  background-color:rgb(210,210,210);
+  border:1px solid rgb(210,210,210);
+  opacity:0.6;
+  border-radius:7px;
+}
+
+._slsl_slidpoint:hover{
+  opacity:1.0;
+  border:1px solid rgb(156,156,156);
+}
+
+._slsl_slidpoint_select{
+  background-color:rgb(181,181,181);
+  border:1px solid rgb(181,181,181);
+  opacity:1.0;
+  border-radius:7px;
+}
+
+._slsl_slidpoint_select:hover{
+  opacity:1.0;
+  border:1px solid rgb(156,156,156);
+}
+
