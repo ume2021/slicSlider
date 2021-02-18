@@ -10,11 +10,7 @@ const SlicSlider = class{
     this.autoSlidInterval=4000;                             // ミリ秒指定
     this.slidBarDisplay=true;                               // スライドバー（左右のバー）：有無
     this.slidPointDisplay=true;                             // スライドポイント（画像下のスライド）：有無
-    this.intervalId = 0;    // IntervalId
-
-    this.errorFunc='';
-    this.errorCode='00';
-    this.errorDetail='';
+    this._intervalId = 0;    // IntervalId
   }
 
   chkNum (val){
@@ -77,9 +73,14 @@ const SlicSlider = class{
       }
 
     }catch(error){
-      this.errorFunc = 'setInParamData';
-      this.errorCode = '99';
-      this.error = 'this function is throws exception';
+      console.error( "[param]P_CN:" + param.className + 
+        " | P_W:" + param.width + 
+        " | P_H:" + param.height + 
+        " | P_AS:" + param.autoSlid + 
+        " | P_ASI:" + param.autoSlidInterval + 
+        " | P_SBD:" + param.slidBarDisplay + 
+        " | P_SPD:" + param.slidPointDisplay + 
+        " | " + error.toString() );
     }
   }
   
@@ -116,19 +117,21 @@ const SlicSlider = class{
       let fAllNone = true;
       let index = 0;
       for( let el of elements ){
-        // 画像の幅・高さの変更
-        if( this.width >= this.height ){
-          el.style.height = this.height + "px";
-          if( el.width > this.width ){
-            el.style.width = this.width + "px";
-          }
+        // 元画像の縦横比を確認
+        let ratioOrignalImage = 0;
+        if( el.naturalHeight == undefined ){
+          ratioOrignalImage = this.height / this.width;
         } else {
-          el.style.width = this.width + "px";
-          if( el.height > this.height ){
-            el.style.height = this.height + "px";
-          }
+          ratioOrignalImage = el.naturalHeight / el.naturalWidth;
         }
-        
+      
+        // 画像の幅・高さの変更
+        if( ratioOrignalImage < 1 ){
+          el.style.width = this.width + "px";
+        } else {
+          el.style.height = this.height + "px";
+        }
+
         // 画像用クラス適用
         el.classList.add('_slsl_image');
 
@@ -158,7 +161,7 @@ const SlicSlider = class{
       
       if( this.autoSlid ){
         // time out setting(対象関数のパラメータを受け渡しするために、無名関数内でCallすること）
-        this.intervalId = setInterval(() =>{
+        this._intervalId = setInterval(() =>{
           this.doNext(this.className, this.slidPointDisplay);
         } ,this.autoSlidInterval);
       }
@@ -215,7 +218,7 @@ const SlicSlider = class{
             } else {
               childEl.classList.add('_slsl_slidpoint');
             }
-            childEl.classList.add('_slsl_slidpoint_width');
+            childEl.classList.add('_slsl_slidpoint_size');
             childEl.onclick = (mEvent) =>{
               this.doIndex(this.className, mEvent, el.getAttribute('slid_index'), this.slidPointDisplay);
             }
@@ -239,10 +242,14 @@ const SlicSlider = class{
       }
       
     }catch(error){
-      this.errorFunc = 'slider';
-      this.errorCode = '99';
-      this.error = 'this function is throws exception';
-      this.displayError(false);
+      console.error( "[param]CN:" + this.className + 
+        " | W:" + this.width + 
+        " | H:" + this.height + 
+        " | AS:" + this.autoSlid + 
+        " | ASI:" + this.autoSlidInterval + 
+        " | SBD:" + this.slidBarDisplay + 
+        " | SPD:" + this.slidPointDisplay + 
+        " | " + error.toString() );
     }
   }
   
@@ -297,10 +304,7 @@ const SlicSlider = class{
       }
 
     }catch(error){
-      this.errorFunc = 'doNext';
-      this.errorCode = '99';
-      this.error = 'this function is throws exception';
-      this.displayError(false);
+      console.error( "[param]CN:" + className + " | SPD:" + slidPointDisplay + " | " + error.toString() );
     }
   }
   
@@ -358,10 +362,7 @@ const SlicSlider = class{
       }
 
     }catch(error){
-      this.errorFunc = 'doBefore';
-      this.errorCode = '99';
-      this.error = 'this function is throws exception';
-      this.displayError(false);
+      console.error( "[param]CN:" + className + " | SPD:" + slidPointDisplay + " | " + error.toString() );
     }
   }
   
@@ -405,19 +406,9 @@ const SlicSlider = class{
       }
 
     }catch(error){
-      this.errorFunc = 'doIndex';
-      this.errorCode = '99';
-      this.error = 'this function is throws exception';
-      this.displayError(false);
+      console.error( "[param]CN:" + className + " | I:" + index + " | SPD:" + slidPointDisplay + " | " + error.toString() );
     }
   }
   
-  displayError(isAlert){
-    if( isAlert ){
-      alert(this.errorFunc + '/' + this.errorCode + '/' + this.error );
-    }
-    console.log( this.errorFunc + '/' + this.errorCode + '/' + this.error );
-  }
-
 }
 

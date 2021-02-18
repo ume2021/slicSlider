@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+<title></title>
+<link rel="stylesheet" href="css\slickSlider.css">
+</head>
+<body style="background-color:rgb(251,211,152);">
+
+<div style="display:flex;flex-flow:row wrap;justify-content:flex-start;">
+  <img style="" src="img/icon_Sample.png">
+  <div style="align-self:center;font-size:30px;color:rgb(132,170,207);">&nbsp;&nbsp;Sample Site</div>
+</div>
+
+<section id="main">
+
+<br>
+
+<div style="display:flex;flex-flow:row wrap;justify-content:center;">
+  <div style="align-self:center;">
+    <img class="slider" src="img/pic_content_face.png">
+    <img class="slider" src="img/pic_content_gu.png">
+    <img class="slider" src="img/pic_content_up.png">
+    <img class="slider" src="img/pic_content_up_face.png" slid_active='active'>
+    <img class="slider" src="img/pic_content_gu2.png">
+  </div>
+</div>
+
+</section>
+<script src="js/slickSlider.js"></script>
+<script>
+let resize_timeoutId = null;
+let wait = 300;
+
+let slicSlider = new SlicSlider();
+
+document.addEventListener("DOMContentLoaded", function(){
+  
+  // リサイズイベント
+  window.addEventListener( 'resize', function() {
+    // timerクリア
+    clearTimeout(resize_timeoutId);
+    // timer設定
+    resize_timeoutId = setTimeout(function(){
+    
+      // スライドリサイズ（画面表示幅によりスライドの表示の大きさを変更）
+      if( window.innerWidth > 1024 ){
+        slicSlider.slider("slider",{
+          width:window.innerWidth*0.4,
+          height:(window.innerWidth*0.4)*0.8,
+          autoSlid:false,
+          autoSlidInterval:4500,
+          slidBarDisplay:true,
+          slidPointDisplay:true
+        });
+      } else if( window.innerWidth > 600 ){
+        slicSlider.slider("slider",{
+          width:window.innerWidth*0.6,
+          height:(window.innerWidth*0.6)*0.8,
+          autoSlid:false,
+          autoSlidInterval:4500,
+          slidBarDisplay:true,
+          slidPointDisplay:true
+        });
+      } else if( window.innerWidth <= 600 ){
+        slicSlider.slider("slider",{
+          width:window.innerWidth*0.8,
+          height:(window.innerWidth*0.8)*0.8,
+          autoSlid:false,
+          autoSlidInterval:4500,
+          slidBarDisplay:true,
+          slidPointDisplay:true
+        });
+      }
+      
+    },wait);
+  },false);
+  
+  // スライド
+  slicSlider.slider("slider",{
+    width:window.innerWidth*0.4,
+    height:(window.innerWidth*0.4)*0.8,
+    autoSlid:false,
+    autoSlidInterval:4500,
+    slidBarDisplay:true,
+    slidPointDisplay:true
+  });
+  
+});
+
+</script>
+</body>
+</html>
